@@ -13,6 +13,9 @@ const gameboard = () => {
     let player = 'one';
 
     const onClick = box =>{
+        if(checkforEnd()){
+            return;
+        }
         if(checkForClick(box[0])){
             if(player === 'one'){
                 board[box[0]] = 'X';
@@ -35,6 +38,38 @@ const gameboard = () => {
         else{
             player = 'one';
         }
+    }
+
+    const checkforEnd = () => {
+        if(board[0] === 'X' || board[0] === 'O'){
+            if(board[1] === 'X' && board[2] === 'X' && board[0] === 'X'){
+                return true;
+            }
+            if(board[1] === 'O' && board[2] === 'O' && board[0] === 'O'){
+                return true;
+            }
+            if(board[4] === 'X' && board[8] === 'X' && board[0] === 'X'){
+                return true;
+            }
+            if(board[4] === 'O' && board[8] === 'O' && board[0] === 'O'){
+                return true;
+            }
+            if(board[3] === 'X' && board[6] === 'X' && board[0] === 'X'){
+                return true;
+            }
+            if(board[3] === 'O' && board[6] === 'O' && board[0] === 'O'){
+                return true;
+            }
+        }
+        if(board[3] === 'X' || board[3] === 'O'){
+            if(board[4] == 'X' && board[5] === 'X' && board[3] === 'X'){
+                return true;
+            }
+            if(board[4] == 'O' && board[5] === 'O' && board[3] === 'O'){
+                return true;
+            }
+        }
+        
     }
 
     return {onClick};
