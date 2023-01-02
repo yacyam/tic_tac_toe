@@ -1,0 +1,23 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+header{
+    text-align: center;
+    padding:10px;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer{
+    margin-top: 20px;
+    
+}
+div{
+    width:200px;
+    height:200px;
+    border: 2px solid black;
+}
