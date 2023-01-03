@@ -12,6 +12,7 @@ const gameboard = () => {
     let board = ['', '', '', '', '', '', '', '', ''];
     let player = 'One';
     let ended = false;
+    let tie = false;
 
     const onClick = box =>{
         if(checkForClick(box[0])){
@@ -24,6 +25,7 @@ const gameboard = () => {
                 box[1].innerHTML = board[box[0]];
             }
             checkforEnd();
+            checkForTie();
             if(ended){
                 displayWinner(true);
                 return;
@@ -84,6 +86,20 @@ const gameboard = () => {
         return ended;
     }
 
+    const checkForTie = () => {
+        let count = 0;
+        for(let i = 0; i < board.length; i++){
+            if(board[i] !== ''){
+                count++;
+            }
+        }
+        if(count === 9){
+            tie = true;
+            ended = true;
+            return tie;
+        }
+    }
+
     const resetGame = () => {
         player = 'One';
         board = ['', '', '', '', '', '', '', '', ''];
@@ -101,9 +117,11 @@ const gameboard = () => {
     }
 
     const displayWinner = (obj) => {
-        if(obj){
-            console.log("gets to here");
+        if(obj && !tie){
             document.getElementById('winner').innerText = `Winner: Player ${player}`;
+        }
+        else if(tie){
+            document.getElementById('winner').innerText = `Winner: Both`;
         }
         else{
             document.getElementById("winner").innerHTML = `Winner: `;
