@@ -128,7 +128,11 @@ const gameboard = () => {
         }
     }
 
-    return {onClick, resetGame, hasEnded};
+    const currentPlayer = () => {
+        return player;
+    }
+
+    return {onClick, currentPlayer, resetGame, hasEnded};
 };
 
 const game = gameboard();
