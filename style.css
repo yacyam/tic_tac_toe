@@ -26,4 +26,18 @@ div{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 200px;
 }
+button{
+    width: 100px;
+    height:30px;
+    margin-right: 200px;
+}
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+footer div{
+    all: revert;
+    font-size:30px;
+}

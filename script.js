@@ -10,15 +10,12 @@ let box9 = [8, document.getElementById("box9")];
 
 const gameboard = () => {
     let board = ['', '', '', '', '', '', '', '', ''];
-    let player = 'one';
+    let player = 'One';
     let ended = false;
 
     const onClick = box =>{
-        if(ended){
-            return;
-        }
         if(checkForClick(box[0])){
-            if(player === 'one'){
+            if(player === 'One'){
                 board[box[0]] = 'X';
                 box[1].innerHTML = board[box[0]];
             }
@@ -27,7 +24,13 @@ const gameboard = () => {
                 box[1].innerHTML = board[box[0]];
             }
             checkforEnd();
-            changePlayer();
+            if(ended){
+                displayWinner(true);
+                return;
+            }
+            else{
+                changePlayer();
+            }
         }
     }
 
@@ -36,11 +39,11 @@ const gameboard = () => {
     }
 
     const changePlayer = () => {
-        if(player === 'one'){
-            player = 'two';
+        if(player === 'One'){
+            player = 'Two';
         }
         else{
-            player = 'one';
+            player = 'One';
         }
     }
 
@@ -77,8 +80,12 @@ const gameboard = () => {
         }
     }
 
+    const hasEnded = () => {
+        return ended;
+    }
+
     const resetGame = () => {
-        player = 'one';
+        player = 'One';
         board = ['', '', '', '', '', '', '', '', ''];
         box1[1].innerHTML = '';
         box2[1].innerHTML = '';
@@ -90,15 +97,26 @@ const gameboard = () => {
         box8[1].innerHTML = '';
         box9[1].innerHTML = '';
         ended = false;
+        displayWinner(ended);
     }
 
-    return {onClick, resetGame, ended};
+    const displayWinner = (obj) => {
+        if(obj){
+            console.log("gets to here");
+            document.getElementById('winner').innerText = `Winner: Player ${player}`;
+        }
+        else{
+            document.getElementById("winner").innerHTML = `Winner: `;
+        }
+    }
+
+    return {onClick, resetGame, hasEnded};
 };
 
 const game = gameboard();
 
 document.body.addEventListener('click', (event) => {
-    if(!game.ended){
+    if(!game.hasEnded()){
         if(box1[1].contains(event.target)){
             game.onClick(box1);
         }
