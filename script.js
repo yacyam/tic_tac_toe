@@ -14,7 +14,7 @@ const gameboard = () => {
     let ended = false;
     let tie = false;
 
-    const onClick = box =>{
+    const onClick = box => {
         if(checkForClick(box[0])){
             if(player === 'One'){
                 board[box[0]] = 'X';
@@ -113,6 +113,7 @@ const gameboard = () => {
         box8[1].innerHTML = '';
         box9[1].innerHTML = '';
         ended = false;
+        tie = false;
         displayWinner(ended);
     }
 
@@ -128,11 +129,7 @@ const gameboard = () => {
         }
     }
 
-    const currentPlayer = () => {
-        return player;
-    }
-
-    return {onClick, currentPlayer, resetGame, hasEnded};
+    return {onClick, resetGame, hasEnded};
 };
 
 const game = gameboard();
