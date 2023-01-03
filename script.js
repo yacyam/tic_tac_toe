@@ -11,9 +11,10 @@ let box9 = [8, document.getElementById("box9")];
 const gameboard = () => {
     let board = ['', '', '', '', '', '', '', '', ''];
     let player = 'one';
+    let ended = false;
 
     const onClick = box =>{
-        if(checkforEnd()){
+        if(ended){
             return;
         }
         if(checkForClick(box[0])){
@@ -25,12 +26,15 @@ const gameboard = () => {
                 board[box[0]] = 'O';
                 box[1].innerHTML = board[box[0]];
             }
+            checkforEnd();
             changePlayer();
         }
     }
+
     const checkForClick = box => {
         return board[box] === '';
     }
+
     const changePlayer = () => {
         if(player === 'one'){
             player = 'two';
@@ -41,68 +45,90 @@ const gameboard = () => {
     }
 
     const checkforEnd = () => {
-        if(board[0] === 'X' || board[0] === 'O'){
-            if(board[1] === 'X' && board[2] === 'X' && board[0] === 'X'){
-                return true;
+        for(let i = 0; i < 3; i++){
+            if(board[i] === 'X' && board[i + 3] === 'X' && board[i + 6] === 'X'){
+                ended = true;
             }
-            if(board[1] === 'O' && board[2] === 'O' && board[0] === 'O'){
-                return true;
-            }
-            if(board[4] === 'X' && board[8] === 'X' && board[0] === 'X'){
-                return true;
-            }
-            if(board[4] === 'O' && board[8] === 'O' && board[0] === 'O'){
-                return true;
-            }
-            if(board[3] === 'X' && board[6] === 'X' && board[0] === 'X'){
-                return true;
-            }
-            if(board[3] === 'O' && board[6] === 'O' && board[0] === 'O'){
-                return true;
+            if(board[i] === 'O' && board[i + 3] === 'O' && board[i + 6] === 'O'){
+                ended = true;
             }
         }
-        if(board[3] === 'X' || board[3] === 'O'){
-            if(board[4] == 'X' && board[5] === 'X' && board[3] === 'X'){
-                return true;
+        for(let i = 0; i < 7; i += 3){
+            if(board[i] === 'X' && board[i + 1] === 'X' && board[i + 2] === 'X'){
+                ended = true;
             }
-            if(board[4] == 'O' && board[5] === 'O' && board[3] === 'O'){
-                return true;
+            if(board[i] === 'O' && board[i + 1] === 'O' && board[i + 2] === 'O'){
+                ended = true;
             }
         }
-        
+
+        if(board[0] === 'X' && board[4] === 'X' && board[8] === 'X'){
+            ended = true;
+        }
+        if(board[0] === 'O' && board[4] === 'O' && board[8] === 'O'){
+            ended = true;
+        }
+
+        if(board[2] === 'X' && board[4] === 'X' && board[6] === 'X'){
+            ended = true;
+        }
+        if(board[2] === 'O' && board[4] === 'O' && board[6] === 'O'){
+            ended = true;
+        }
     }
 
-    return {onClick};
+    const resetGame = () => {
+        player = 'one';
+        board = ['', '', '', '', '', '', '', '', ''];
+        box1[1].innerHTML = '';
+        box2[1].innerHTML = '';
+        box3[1].innerHTML = '';
+        box4[1].innerHTML = '';
+        box5[1].innerHTML = '';
+        box6[1].innerHTML = '';
+        box7[1].innerHTML = '';
+        box8[1].innerHTML = '';
+        box9[1].innerHTML = '';
+        ended = false;
+    }
+
+    return {onClick, resetGame, ended};
 };
 
 const game = gameboard();
 
 document.body.addEventListener('click', (event) => {
-    if(box1[1].contains(event.target)){
-        game.onClick(box1);
-    }
-    if(box2[1].contains(event.target)){
-        game.onClick(box2);
-    }
-    if(box3[1].contains(event.target)){
-        game.onClick(box3);
-    }
-    if(box4[1].contains(event.target)){
-        game.onClick(box4);
-    }
-    if(box5[1].contains(event.target)){
-        game.onClick(box5);
-    }
-    if(box6[1].contains(event.target)){
-        game.onClick(box6);
-    }
-    if(box7[1].contains(event.target)){
-        game.onClick(box7);
-    }
-    if(box8[1].contains(event.target)){
-        game.onClick(box8);
-    }
-    if(box9[1].contains(event.target)){
-        game.onClick(box9);
+    if(!game.ended){
+        if(box1[1].contains(event.target)){
+            game.onClick(box1);
+        }
+        if(box2[1].contains(event.target)){
+            game.onClick(box2);
+        }
+        if(box3[1].contains(event.target)){
+            game.onClick(box3);
+        }
+        if(box4[1].contains(event.target)){
+            game.onClick(box4);
+        }
+        if(box5[1].contains(event.target)){
+            game.onClick(box5);
+        }
+        if(box6[1].contains(event.target)){
+            game.onClick(box6);
+        }
+        if(box7[1].contains(event.target)){
+            game.onClick(box7);
+        }
+        if(box8[1].contains(event.target)){
+            game.onClick(box8);
+        }
+        if(box9[1].contains(event.target)){
+            game.onClick(box9);
+        }
     }
 });
+
+function reset(){
+    game.resetGame();
+}
