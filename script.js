@@ -118,7 +118,7 @@ const gameboard = () => {
     }
 
     const displayWinner = (obj) => {
-        if(obj && !tie){
+        if(obj){
             document.getElementById('winner').innerText = `Winner: Player ${player}`;
         }
         else if(tie){
