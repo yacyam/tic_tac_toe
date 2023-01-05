@@ -26,8 +26,8 @@ const gameboard = () => {
             }
             checkforEnd();
             checkForTie();
-            if(ended){
-                displayWinner(true);
+            if(ended || tie){
+                displayWinner();
                 return;
             }
             else{
@@ -95,8 +95,6 @@ const gameboard = () => {
         }
         if(count === 9){
             tie = true;
-            ended = true;
-            return tie;
         }
     }
 
@@ -114,11 +112,11 @@ const gameboard = () => {
         box9[1].innerHTML = '';
         ended = false;
         tie = false;
-        displayWinner(ended);
+        displayWinner();
     }
 
-    const displayWinner = (obj) => {
-        if(obj){
+    const displayWinner = () => {
+        if(ended){
             document.getElementById('winner').innerText = `Winner: Player ${player}`;
         }
         else if(tie){
